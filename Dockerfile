@@ -1,5 +1,5 @@
 # Using a standard lightweight Linux container
-FROM alpine:3.10
+FROM alpine:latest
 
 # Copying from this repository to the container path '/'
 COPY entrypoint.sh /entrypoint.sh
