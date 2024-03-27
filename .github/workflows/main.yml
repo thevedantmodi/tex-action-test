@@ -4,7 +4,7 @@ jobs:
   build-tex:
     runs-on: ubuntu-latest
     name: Build all tex files to PDF
-    container: alpine:latest
+    container: node:16
     steps:
-      - run: git --version
-      
+      - run: node --version
+
