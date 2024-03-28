@@ -5,6 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     name: Build all tex files to PDF
     steps:
-      - uses: actions/checkout@v4
-      - run: pdflatex source.tex
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Compile TeX -> PDF
+        uses: xu-cheng/latex-action@v2
+        with:
+            root_file: source.tex
+      - name: Upload the build product
+        uses: actions/upload-artifact@v2.3.1
+        with:
+            name: PDF
+            path: source.pdf
+      
 
