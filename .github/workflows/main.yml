@@ -7,4 +7,6 @@ jobs:
     container: node:16
     steps:
       - run: node --version
-
+      - uses: actions/checkout@v4
+      - run: ls
+      
