@@ -16,5 +16,17 @@ jobs:
         with:
             name: PDF
             path: source.pdf
+  download-pdf:
+      runs-on: ubuntu-latest
+      name: Download PDF from jobs archive
+      needs: build-tex
+      steps:
+        - name: Download PDF
+          uses: actions/download-artifact@v4
+          with:
+            name: source.pdf
+        - name: Test download
+          run: ls -R
+
       
 
