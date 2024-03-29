@@ -12,7 +12,7 @@ jobs:
         with:
             root_file: source.tex
       - name: Upload the build product
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
             name: PDF Release
             path: ./source.pdf
