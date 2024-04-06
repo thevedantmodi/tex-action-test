@@ -25,9 +25,13 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: PDF Release
-        # - name: Push to GitHhub
-        #     run: git config --global user.name "github-actions[bot]"
-
+        - name: Push to GitHhub
+          run: |
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "[bot] Add built PDF"
+            git push
   # create-release:
   #   runs-on: ubuntu-latest
   #   name: Create PDF release
