@@ -1,6 +1,0 @@
-# action.yml
-name: 'Compile LaTeX'
-description: '.tex -> .pdf'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
