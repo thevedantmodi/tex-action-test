@@ -38,6 +38,8 @@ jobs:
             git commit -m "[bot] Add built PDF"
             git push --set-upstream origin build
             echo "pushed to github repo"
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
   # create-release:
   #   runs-on: ubuntu-latest
