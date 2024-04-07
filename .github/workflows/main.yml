@@ -25,21 +25,28 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: PDF Release
-        - name: Push to GitHub
-          run: |
-            git init
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git remote add origin git@github.com:${{github.repository}}.git
-            git status
-            git add source.pdf
-            git status
-            git checkout -B build
-            git commit -m "[bot] Add built PDF"
-            git push --set-upstream origin build
-            echo "pushed to github repo"
-          env:
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Deploy to pages
+          uses: JamesIves/github-pages-deploy-action@v4
+          with: 
+            folder: .
+            branch: gh-pages
+            
+        # - name: Push to GitHub
+        #   run: |
+        #     git init
+        #     git config --global user.name "github-actions[bot]"
+        #     git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        #     # git remote add origin git@github.com:.git
+        #     git remote set-url origin "https://$MY_NAME:${{ secrets.MY_PASSWORD }}@github.com/${{github.repository}}.git"
+        #     git status
+        #     git add source.pdf
+        #     git status
+        #     git checkout -B build
+        #     git commit -m "[bot] Add built PDF"
+        #     git push --set-upstream origin build
+        #     echo "pushed to github repo"
+        #   env:
+        #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
   # create-release:
   #   runs-on: ubuntu-latest
