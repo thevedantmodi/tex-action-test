@@ -1,5 +1,80 @@
-\documentclass[]{article}
+\documentclass[12pt]{article}
+\usepackage{graphicx}
 
+\usepackage{epsfig}
+\usepackage{amsmath,amsthm}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+
+\newlength{\toppush}
+\setlength{\toppush}{2\headheight}
+\addtolength{\toppush}{\headsep}
+
+\def\subjnum{COMP160}
+\def\subjname{Algorithms}
+
+\def\doheading#1#2#3{\vfill\eject\vspace*{-\toppush}%
+  \vbox{\hbox to\textwidth{{\bf} \subjnum: \subjname \hfil Vedant Modi}%
+    \hbox to\textwidth{{\bf} Tufts University, Spring 2024 \hfil#3\strut}%
+    \hrule}}
+
+\newcommand{\htitle}[1]{\vspace*{1.25ex plus 1ex minus 0ex}%
+\begin{center}
+{\large\bf #1}
+\end{center}} 
+
+\newcommand{\notimplies}{\rlap{$\quad\not$}\implies}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-    Hello Vedant Modi.
+\doheading{2}{title}{Important Concepts}
+
+\begin{description}
+  \item This document contains notes on important takeaways from COMP160. 
+\end{description}
+
+\section{Time Complexity}
+
+
+
+\section{Master Method}
+\subsection*{Simple}
+Given a recurrence $T(n) = aT(\frac{n}{b}) + \Theta(n^d)$
+\begin{itemize}
+    \item $\log_b{a} > d \implies T(n) = \Theta(n^{\log_b{a}})$
+    
+    This is the case where the leaves dominate the asymptotic growth.
+    \item $\log_b{a} = d \implies T(n) = \Theta(n^d \log n)$
+    
+    This is the case where each level donates equally to the asymptotic growth.
+    \item $\log_b{a} < d \implies T(n) = \Theta(n^d)$
+    
+    This is the case where the work done at the root of the recursion tree is the greatest.
+\end{itemize}
+
+\subsection*{Complex}
+Given a recurrence $T(n) = aT(\frac{n}{b}) + f(n)$ and $a,b \in \mathbb{R} \text{ s.t. } a > 0, b > 1$
+\begin{itemize}
+  \item $f(n) = O(n^{\log_b{a} - \epsilon})$, for some $\epsilon > 0 \implies T(n) = \Theta (n^{\log_b{a}})$
+  
+  \item $f(n) = \Theta(n^{\log_b{a}}) \implies T(n) = \Theta (n^{\log_b{a}}\log n)$
+  
+  Also, $f(n) = \Theta(n^{\log_b{a}} \log^k{n}) \implies T(n) = \Theta (n^{\log_b{a}}\log n), k \geq 0 \implies T(n) = \Theta(n^{\log_b{a}} \log^{k+1}{n})$
+
+  \item $f(n) = \Omega(n^{\log_b{a} + \epsilon})$, for some $\epsilon > 0 \implies T(n) = \Theta (f(n))$
+\end{itemize}
+
+
 \end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
