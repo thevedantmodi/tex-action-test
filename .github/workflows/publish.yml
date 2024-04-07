@@ -17,21 +17,21 @@ jobs:
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛒
+      - name: Checkout 🛒 # Need to clone GH repo into container
         uses: actions/checkout@v4
       - name: Compile TeX -> PDF
         uses: xu-cheng/latex-action@v2
         with:
-            root_file: source.tex
+            root_file: source.tex # Operates on root directory source.tex
       - name: Create GitHub Release 🌍
         id: create-release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{github.run_number}}
-          release_name: ${{github.run_number}}
-
+          tag_name: ${{github.run_number}} # Change here, e.g. Release 1.0
+          release_name: Release ${{github.run_number}}
+        # Places PDF into releases 
       - name: Upload Release Asset
         id: upload_release_asset
         uses: actions/upload-release-asset@v1
@@ -43,7 +43,8 @@ jobs:
           asset_name: source-v${{github.run_number}}.pdf
           asset_content_type: application/pdf
   
-      - name: Place output
+        # Sets up GitHub Pages deployment workflow
+      - name: Place output for GitHub Pages
         run: mkdir build && mv source.pdf build/ && mv index.html build/
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
