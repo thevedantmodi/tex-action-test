@@ -12,36 +12,33 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
             root_file: source.tex
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Create GitHub Release 🌍
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
         with:
-            name: source.pdf
-            path: ./source.pdf
+          tag_name: ${{github.run_number}}
+          release_name: ${{github.run_number}}
+
+      - name: Upload Release Asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{steps.create-release.outputs.upload_url}}
+          asset_path: ./source.pdf
+          asset_name: source-v${{github.run_number}}.pdf
+          asset_content_type: application/pdf
+  
       - name: Place output
         run: mkdir build && mv source.pdf build/ && mv index.html build/
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # The folder the action should deploy.
-  Release: # Artifact is already created here
-    runs-on: ubuntu-latest
-    steps:
-        - name: Create GitHub Release 🌍
-          id: create-release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
-          with:
-            tag_name: ${{github.run_number}}
-            release_name: ${{github.run_number}}
-        - name: Upload Release Asset
-          id: upload_release_asset
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{steps.create-release.outputs.upload_url}}
-            asset_path: ./source.pdf
-            asset_name: source-v${{github.run_number}}.pdf
-            asset_content_type: application/pdf
-
+            folder: build # The folder the action should deploy.
+  # Release: # Artifact is already created here
+  #   runs-on: ubuntu-latest
+  #   steps:
+        
