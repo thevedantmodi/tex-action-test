@@ -13,7 +13,7 @@ jobs:
         with:
             root_file: source.tex
       - name: Place output
-        run: mkdir build && mv source.pdf build/
+        run: mkdir build && mv source.pdf build/ && mv index.html build/
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
