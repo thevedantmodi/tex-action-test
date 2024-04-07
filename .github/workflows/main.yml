@@ -12,6 +12,11 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
             root_file: source.tex
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+            name: source.pdf
+            path: ./source.pdf
       - name: Place output
         run: mkdir build && mv source.pdf build/ && mv index.html build/
       - name: Deploy 🚀
