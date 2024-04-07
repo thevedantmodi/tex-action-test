@@ -32,12 +32,12 @@ jobs:
             git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git remote add origin ${{github.repository}}
             git status
-            # git checkout build
+            git add source.pdf
+            git checkout -B build
             # mkdir build && mv source.pdf build/ && cd build
-            # git add .
-            # git commit -m "[bot] Add built PDF"
-            # git push --set-upstream origin build
-            # echo "pushed to github repo"
+            git commit -m "[bot] Add built PDF"
+            git push --set-upstream origin build
+            echo "pushed to github repo"
             
   # create-release:
   #   runs-on: ubuntu-latest
