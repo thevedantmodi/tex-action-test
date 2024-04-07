@@ -7,13 +7,16 @@
 # Compiles .tex -> .pdf 
 # .pdf -> GH releases
 # .pdf -> GH pages release
+# 
+# Requires .tex to compile, and index.html for GitHub Pages
+# See thevedantmodi/tex-action-test for examples
 #
 
 on: [push]
 permissions:
   contents: write
 jobs:
-  Build-Deploy:
+  Build-Deploy-Release:
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
