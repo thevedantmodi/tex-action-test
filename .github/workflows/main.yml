@@ -33,8 +33,8 @@ jobs:
             git remote add origin https://github.com/${{github.repository}}
             git status
             git add source.pdf
-            git checkout -B build
-            # mkdir build && mv source.pdf build/ && cd build
+            git status
+            git checkout -b build
             git commit -m "[bot] Add built PDF"
             git push --set-upstream origin build
             echo "pushed to github repo"
