@@ -22,10 +22,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Create GitHub Release 🌍
+          id: create-release
           uses: actions/create-release@v1
           env:
             GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
           with:
             tag_name: ${{github.run_number}}
             release_name: ${{github.run_number}}
+        - name: Upload Release Asset
+          id: upload_release_asset
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{steps.create-release.outputs.upload_url}}
+            asset_path: ./source.pdf
+            asset_name: source-v${{github.run_number}}.pdf
+            asset_content_type: application/pdf
 
